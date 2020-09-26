@@ -1,34 +1,25 @@
 """ddpg_controller controller."""
 
-# You may need to import some classes of the controller module. Ex:
-#  from controller import Robot, Motor, DistanceSensor
 from controller import Robot
+from deepbots.supervisor.controllers.supervisor_emitter_receiver import SupervisorCSV
 
-# create the Robot instance.
-robot = Robot()
 
-print(robot.getPosition())
+class ddpg_supervisor(SupervisorCSV):
+    def __init__(self):
+        super().__init__()
 
-# get the time step of the current world.
-timestep = int(robot.getBasicTimeStep())
+    def get_observations(self):
+        return [1, 1, 1, 1]
 
-# You should insert a getDevice-like function in order to get the
-# instance of a device of the robot. Something like:
-#  motor = robot.getMotor('motorname')
-#  ds = robot.getDistanceSensor('dsname')
-#  ds.enable(timestep)
+    def get_reward(self, action):
+        return 1
 
-# Main loop:
-# - perform simulation steps until Webots is stopping the controller
-while robot.step(timestep) != -1:
-    # Read the sensors:
-    # Enter here functions to read sensor data, like:
-    #  val = ds.getValue()
+    def get_info(self):
+        return None
 
-    # Process sensor data here.
+    def is_done(self):
+        return False
 
-    # Enter here functions to send actuator commands, like:
-    #  motor.setPosition(10.0)
-    pass
 
-# Enter here exit cleanup code.
+supervisor = ddpg_supervisor()
+print("running")
