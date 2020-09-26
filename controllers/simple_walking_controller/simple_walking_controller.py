@@ -1,8 +1,8 @@
-"""simple_joint_controller controller."""
+"""simple_walking_controller controller."""
 
 # You may need to import some classes of the controller module. Ex:
 #  from controller import Robot, Motor, DistanceSensor
-from controller import Robot, Motor
+from controller import Robot
 
 # create the Robot instance.
 robot = Robot()
@@ -15,26 +15,6 @@ timestep = int(robot.getBasicTimeStep())
 #  motor = robot.getMotor('motorname')
 #  ds = robot.getDistanceSensor('dsname')
 #  ds.enable(timestep)
-
-control_structures = [["hipx_a", "hipy_a", "leg_a"],
-                      ["hipx_b", "hipy_b", "leg_b"],
-                      ["hipx_c", "hipy_c", "leg_c"],
-                      ["hipx_d", "hipy_d", "leg_d"]]
-
-
-def set_motor_speed(motorName, speed):
-    motor = robot.getMotor(motorName)
-    motor.setPosition(float("inf"))
-    motor.setVelocity(speed)
-
-# set motor speed
-def set_all_motors(speed):
-    for structure in control_structures:
-        for motor_name in structure:
-            set_motor_speed(motor_name, speed)
-
-
-set_all_motors(0.05)
 
 # Main loop:
 # - perform simulation steps until Webots is stopping the controller
