@@ -8,7 +8,7 @@ from deepbots.supervisor.controllers.supervisor_emitter_receiver import Supervis
 from PPOAgent import PPOAgent, Transition
 from utilities import normalizeToRange
 
-class CartPoleSupervisor(SupervisorCSV):
+class LeggySupervisor(SupervisorCSV):
     def __init__(self):
         super().__init__()
         self.observationSpace = 4 # The agent has four inputs
@@ -54,6 +54,9 @@ class CartPoleSupervisor(SupervisorCSV):
         return [cartPosition, cartVelocity, poleAngle, endPointVelocity]
 
     def get_reward(self, action=None):
+        # TODO: change this to match our robot
+        # -10 for topple
+        # abs(pos, orig) as reward ?
         return 1
 
     def is_done(self):
@@ -89,7 +92,7 @@ class CartPoleSupervisor(SupervisorCSV):
     def get_info(self):
         return None
 
-supervisor = CartPoleSupervisor()
+supervisor = LeggySupervisor()
 agent = PPOAgent(supervisor.observationSpace, supervisor.actionSpace)
 solved = False
 
