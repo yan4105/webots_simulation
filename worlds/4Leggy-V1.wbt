@@ -498,5 +498,5 @@ Robot {
   physics Physics {
     mass 1
   }
-  controller "simple_joint_controller"
+  controller "ddpg_controller"
 }
