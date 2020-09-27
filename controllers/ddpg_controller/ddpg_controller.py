@@ -20,11 +20,12 @@ class ddpg_controller(SupervisorCSV):
         #self.poleEndpoint = self.supervisor.getFromDef("POLE_ENDPOINT")
         self.messageReceived = None # Variable to save the messages received from the robot
         self.episodeCount = 0 # Episode counter
-        self.episodeLimit = 10000 # Max number of episodes allowed
+        self.episodeLimit = 20000 # Max number of episodes allowed
         self.stepPerEpisode = 100 # Max number of steps per episode
         self.episodeScore = 0 # Score accumulated during an episode
         self.episodeScoreList = [] # A list to save all the episode scores, used to check if task is solved
         self.abs_last = 0
+        self.got_big_reward = 0
 
     def respawnRobot(self):
         #print("respawn called")
@@ -73,28 +74,67 @@ class ddpg_controller(SupervisorCSV):
             message = [float(i) for i in message]
             roll, pitch, yaw = message[0], message[1], message[2]
             #print("reward", (abs(roll) + abs(pitch) - self.abs_last) * 10)
-            cri = roll * roll + pitch * pitch
+            cri = (roll + pitch) / 10
             if cri > self.abs_last:
                 reward = (cri - self.abs_last) * 1000
             else:
                 reward = -0.1
             self.abs_last = cri
-            if (cri > 0.02):
-                reward += 1000
-            if (cri > 0.1):
-                print("got big reward")
+            if (cri > 0.05):
+                self.got_big_reward += 1
+            #    print("got 20000")
+                reward += 20000
+            elif (cri > 0.04):
+                self.got_big_reward += 1
+            #    print("got 10000")
                 reward += 10000
+            elif (cri > 0.03):
+                self.got_big_reward += 1
+            #    print("got 5000")
+                reward += 5000
+            elif (cri > 0.02):
+                self.got_big_reward += 1
+            #    print("got 2000")
+                reward += 2000
+            elif (cri > 0.005):
+            #    print("got 500")
+                reward += 500
+            else:
+                reward -= 1000
+            #else:
+            #    print(cri)
+            #    if (self.got_big_reward > 0):
+            #        reward -= 1000
+            #    else:
+            #        reward -= 1000
+            if (cri > 0.5):
+            #    print("got big reward")
+                reward += 10000
+            #if (cri > 0.02):
+            #    reward = cri * 100
+            #if (cri > 0.01):
+            #    reward = cri
+            #else:
+            #    reward = -0.01
             #print(self.abs_last)
             return reward
         return 0
 
     def is_done(self):
+        if self.messageReceived is not None:
+            message = self.messageReceived
+            message = [float(i) for i in message]
+            roll, pitch, yaw = message[0], message[1], message[2]
+            #print("reward", (abs(roll) + abs(pitch) - self.abs_last) * 10)
+            cri = roll + pitch
+            if cri < -0.01:
+                return True
         return False
 
     def solved(self):
-        if len(self.episodeScoreList) > 100: # Over 100 trials thus far
-            if np.mean(self.episodeScoreList[-100:]) > 195.0: # Last 100 episodes' scores average value
-                return True
+        #if len(self.episodeScoreList) > 100: # Over 100 trials thus far
+        #    if np.mean(self.episodeScoreList[-100:]) > 1000.0: # Last 100 episodes' scores average value
+        #        return True
         return False
 
     def reset(self):
@@ -146,6 +186,5 @@ elif solved:
     print("Task is solved, deploying agent for testing...")
 observation = supervisor.reset()
 while True:
-    print("testing")
     selectedAction, actionProb = agent.work(observation, type_="selectActionMax")
     observation, _, _, _ = supervisor.step([selectedAction])

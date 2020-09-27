@@ -15,6 +15,7 @@ class levelingRobot(RobotEmitterReceiverCSV):
         self.IMU = self.robot.getInertialUnit("inertial unit")
         self.IMU.enable(self.get_timestep())
         self.hipy_a = self.robot.getMotor("hipy_a")
+        self.hipy_a.setPosition(0)
         self.hipy_a.setPosition(float("inf"))
         self.hipy_a.setVelocity(0)
         self.hipy_a.getPositionSensor().enable(self.get_timestep())
