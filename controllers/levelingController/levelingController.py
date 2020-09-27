@@ -10,10 +10,16 @@ class levelingRobot(RobotEmitterReceiverCSV):
         super().__init__()
         self.IMU = self.robot.getInertialUnit("inertial unit")
         self.IMU.enable(self.get_timestep())
+        self.hipy_a = self.robot.getMotor("hipy_a")
+        self.hipy_a.getPositionSensor().enable(self.get_timestep())
+        self.hipy_b = self.robot.getMotor("hipy_b")
+        self.hipy_c = self.robot.getMotor("hipy_c")
+        self.hipy_d = self.robot.getMotor("hipy_d")
 
     def create_message(self):
         # Read the sensor value, convert to string and save it in a list
         message = [str(self.IMU.getRollPitchYaw())]
+        print(str(self.hipy_a.getPositionSensor().getValue()))
         # print(message)
         return message
         #return ["abcd"]
