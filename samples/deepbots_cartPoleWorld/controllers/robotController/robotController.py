@@ -25,7 +25,7 @@ class CartpoleRobot(RobotEmitterReceiverCSV):
 
     def create_message(self):
         # Read the sensor value, convert to string and save it in a list
-        message = [str(self.positionSensor.getValue())]
+        message = str(self.positionSensor.getValue())
         return message
 
     def use_message_data(self, message):

@@ -1,5 +1,7 @@
 #VRML_OBJ R2020b utf8
-Robot {
+DEF ROBOT Robot {
+  translation 1.0572226367434737e-05 -0.009557085497196312 0.0006028456847256103
+  rotation -0.9998463241186145 4.383815210207088e-06 0.017530776573695037 -0.011886487102415475
   children [
     DEF IMU InertialUnit {
     }
@@ -9,7 +11,7 @@ Robot {
     }
     DEF body_hip1_a HingeJoint {
       jointParameters HingeJointParameters {
-        position 1.2297975081261418e-06
+        position 1.2452492362428137e-06
         axis 0 1 0
         anchor -0.06 -0.06 0
         minStop 1.5078
@@ -24,11 +26,11 @@ Robot {
       ]
       endPoint Solid {
         translation -0.06 -0.06 0
-        rotation 6.148987540629159e-07 6.149026444135234e-07 0.9999999999996219 1.5707900000003765
+        rotation 6.226246181212459e-07 6.226285573519653e-07 0.9999999999996123 1.5707900000003863
         children [
           DEF hip1_hip2a HingeJoint {
             jointParameters HingeJointParameters {
-              position 5.477545094392787e-06
+              position 5.492567683820325e-06
               axis 0 0 1
             }
             device [
@@ -42,12 +44,12 @@ Robot {
               }
             ]
             endPoint Solid {
-              translation -7.261029178794431e-07 0.14999999999824273 0.024999999999999998
-              rotation 0 0 1 4.840469678832906e-06
+              translation -7.283563062935472e-07 0.14999999999823185 0.025000000000000005
+              rotation 0 0 1 4.8554010950808175e-06
               children [
                 DEF leg1_leg2 HingeJoint {
                   jointParameters HingeJointParameters {
-                    position 1.0293806382416432e-06
+                    position 1.033468864032572e-06
                     axis 0 0 1
                     anchor 0 0.135 0
                   }
@@ -59,8 +61,8 @@ Robot {
                     }
                   ]
                   endPoint Solid {
-                    translation -1.2867257977324368e-07 0.2599999999999337 -0.025399999999999964
-                    rotation 0 0 1 1.0293672108155927e-06
+                    translation -1.2918360799710956e-07 0.2599999999999331 -0.025399999999999957
+                    rotation 0 0 1 1.0336724040523064e-06
                     children [
                       Shape {
                         appearance Appearance {
@@ -78,6 +80,8 @@ Robot {
                     boundingObject USE leg2
                     physics Physics {
                     }
+                    linearVelocity -6.0294812745723026e-05 -0.295459052751313 -0.003443521713709878
+                    angularVelocity 0.37139998533743374 -1.3931483196724725e-06 -0.006510866717953996
                   }
                 }
                 Shape {
@@ -96,6 +100,8 @@ Robot {
               boundingObject USE leg1
               physics Physics {
               }
+              linearVelocity -6.0335037216367064e-05 -0.30658436805785344 -0.0034434327031775264
+              angularVelocity 0.37140001201046446 -1.4156317652465444e-06 -0.0065109896224531194
             }
           }
           Shape {
@@ -115,11 +121,13 @@ Robot {
         physics Physics {
           mass 1
         }
+        linearVelocity -6.030802910806825e-05 -0.29827452130367516 -0.003443698870518171
+        angularVelocity 0.37140000552427216 -1.5220154904731035e-06 -0.006511460375923216
       }
     }
     DEF body_hip1_b HingeJoint {
       jointParameters HingeJointParameters {
-        position -4.074927346451247e-06
+        position -4.090458242131874e-06
         axis 0 1 0
         anchor 0.06 -0.06 0
         minStop 1.5078
@@ -134,14 +142,16 @@ Robot {
       ]
       endPoint Solid {
         translation 0.06 -0.06 0
-        rotation 0.7071077811890188 0.7071057811819401 -1.0104728242578601e-06 3.1415871185953153
+        rotation 0.7071077811890374 0.7071057811819293 -1.0049818156655721e-06 3.1415871076133293
         children [
           DEF hip1_hip2 HingeJoint {
             jointParameters HingeJointParameters {
-              position 5.288118382669463e-06
+              position 5.30314210829497e-06
               axis 0 0 1
             }
             device [
+              PositionSensor {
+              }
               DEF h2 RotationalMotor {
                 name "hipy_b"
                 minPosition -10
@@ -149,12 +159,12 @@ Robot {
               }
             ]
             endPoint Solid {
-              translation -7.932177573967228e-07 0.14999999999790278 0.024999999999999988
-              rotation 0 0 1 5.288127981079386e-06
+              translation -7.954713162405172e-07 0.14999999999789082 0.024999999999999988
+              rotation 0 0 1 5.303138832936702e-06
               children [
                 DEF leg1_leg2 HingeJoint {
                   jointParameters HingeJointParameters {
-                    position 1.029425752758222e-06
+                    position 1.0320298585616673e-06
                     axis 0 0 1
                     anchor 0 0.135 0
                   }
@@ -166,8 +176,8 @@ Robot {
                     }
                   ]
                   endPoint Solid {
-                    translation -1.2867821909475496e-07 0.25999999999993373 -0.025399999999999964
-                    rotation 0 0 1 1.0293672108155927e-06
+                    translation -1.2900373232018546e-07 0.2599999999999334 -0.025399999999999964
+                    rotation 0 0 1 1.0319524820554839e-06
                     children [
                       Shape {
                         appearance Appearance {
@@ -185,6 +195,8 @@ Robot {
                     boundingObject USE leg2
                     physics Physics {
                     }
+                    linearVelocity -6.032174871210734e-05 -0.30187829850770403 -0.003443452569737066
+                    angularVelocity 0.3713999318999209 -1.8636450444730702e-06 -0.006512949666562034
                   }
                 }
                 Shape {
@@ -203,6 +215,8 @@ Robot {
               boundingObject USE leg1
               physics Physics {
               }
+              linearVelocity -6.02638745142239e-05 -0.29075051296145626 -0.0034433334292313443
+              angularVelocity 0.3713999179603813 -1.8411620341163258e-06 -0.006512872706352472
             }
           }
           Shape {
@@ -222,11 +236,13 @@ Robot {
         physics Physics {
           mass 1
         }
+        linearVelocity -6.030803214282106e-05 -0.2990563618621981 -0.003443503533478237
+        angularVelocity 0.3713999584992338 -1.7347806205580324e-06 -0.0065124019178469
       }
     }
     DEF body_hip1_c HingeJoint {
       jointParameters HingeJointParameters {
-        position 2.0393565558198724e-06
+        position 1.8953583708882683e-06
         axis 0 1 0
         anchor 0 0.06 0.06
         minStop 1.5078
@@ -240,15 +256,17 @@ Robot {
         }
       ]
       endPoint Solid {
-        translation -4.074986435221391e-08 -0.06000059999999986 0.060000034384994204
-        rotation 0.57735321803523 0.5773492180401242 0.5773483714819169 2.0943908465522165
+        translation -4.074986930359022e-08 -0.06000059999999982 0.06000003438498834
+        rotation 0.5773531903230147 0.5773491903274719 0.5773484269070538 2.094390763414979
         children [
           DEF hip1_hip2 HingeJoint {
             jointParameters HingeJointParameters {
-              position 5.642517244751299e-06
+              position 5.5045992409018635e-06
               axis 0 0 1
             }
             device [
+              PositionSensor {
+              }
               DEF h2 RotationalMotor {
                 name "hipy_c"
                 minPosition -10
@@ -256,12 +274,12 @@ Robot {
               }
             ]
             endPoint Solid {
-              translation -8.46377586708203e-07 0.14999999999761207 0.024999999999999953
-              rotation 0 0 1 5.642485589932136e-06
+              translation -8.256898861311095e-07 0.14999999999772745 0.024999999999999967
+              rotation 0 0 1 5.504562361177217e-06
               children [
                 DEF leg1_leg2 HingeJoint {
                   jointParameters HingeJointParameters {
-                    position 1.0270873340542333e-06
+                    position 9.89535283696075e-07
                     axis 0 0 1
                     anchor 0 0.135 0
                   }
@@ -273,8 +291,8 @@ Robot {
                     }
                   ]
                   endPoint Solid {
-                    translation -1.283859167532869e-07 0.25999999999993384 -0.02539999999999992
-                    rotation 0 0 1 1.0272078478106424e-06
+                    translation -1.236919104585195e-07 0.2599999999999386 -0.025399999999999923
+                    rotation 0 0 1 9.893293781696559e-07
                     children [
                       Shape {
                         appearance Appearance {
@@ -292,6 +310,8 @@ Robot {
                     boundingObject USE leg2
                     physics Physics {
                     }
+                    linearVelocity -6.10715747071421e-05 -0.47317548326183684 -0.0034435174053689846
+                    angularVelocity 0.37139004832917805 -1.6302645758038176e-06 -0.00651195007825209
                   }
                 }
                 Shape {
@@ -310,6 +330,8 @@ Robot {
               boundingObject USE leg1
               physics Physics {
               }
+              linearVelocity -6.064217377759594e-05 -0.3767876572300045 -0.0034431967939992903
+              angularVelocity 0.37139120255240615 -1.63525008803844e-06 -0.006511738075344524
             }
           }
           Shape {
@@ -329,11 +351,13 @@ Robot {
         physics Physics {
           mass 1
         }
+        linearVelocity -6.0397756570059956e-05 -0.3209284675637118 -0.0034432842652035076
+        angularVelocity 0.37139551249066666 -1.6318246188426734e-06 -0.006511833050704694
       }
     }
     DEF body_hip1_d HingeJoint {
       jointParameters HingeJointParameters {
-        position -5.135003781486675e-06
+        position -4.950884650574902e-06
         axis 0 1 0
         anchor 0 -0.06 -0.06
         minStop 1.5078
@@ -347,15 +371,17 @@ Robot {
         }
       ]
       endPoint Solid {
-        translation -2.001454557497515e-13 -0.0600006 -0.06
-        rotation -0.5773539240778702 -0.5773499240848112 0.5773469593850368 2.094398271871091
+        translation -2.0014545574465988e-13 -0.0600006 -0.06
+        rotation -0.5773538886444651 -0.5773498886511733 0.5773470302526827 2.0943981655699275
         children [
           DEF hip1_hip2 HingeJoint {
             jointParameters HingeJointParameters {
-              position 5.162917497598803e-06
+              position 0.03200497771654577
               axis 0 0 1
             }
             device [
+              PositionSensor {
+              }
               DEF h2 RotationalMotor {
                 name "hipy_d"
                 minPosition -10
@@ -363,12 +389,12 @@ Robot {
               }
             ]
             endPoint Solid {
-              translation -7.744376246363795e-07 0.14999999999800073 0.024999999999999984
-              rotation 0 0 1 5.162945935418553e-06
+              translation -0.0047999271171084105 0.14992318266255691 0.024999999999999977
+              rotation 0 0 1 0.0320049777165448
               children [
                 DEF leg1_leg2 HingeJoint {
                   jointParameters HingeJointParameters {
-                    position 1.029384695389747e-06
+                    position 9.763962417648556e-07
                     axis 0 0 1
                     anchor 0 0.135 0
                   }
@@ -380,8 +406,8 @@ Robot {
                     }
                   ]
                   endPoint Solid {
-                    translation -1.2867308692022623e-07 0.2599999999999338 -0.025399999999999985
-                    rotation 0 0 1 1.0293672108155927e-06
+                    translation -1.2204953021711816e-07 0.25999999999994045 -0.025399999999999992
+                    rotation 0 0 1 9.762250992154695e-07
                     children [
                       Shape {
                         appearance Appearance {
@@ -399,6 +425,8 @@ Robot {
                     boundingObject USE leg2
                     physics Physics {
                     }
+                    linearVelocity -6.140486344779584e-05 -0.5340686520733181 -0.0034412109663765514
+                    angularVelocity -0.6285868394308144 2.8740150760139333e-06 -0.006519367879977064
                   }
                 }
                 Shape {
@@ -417,6 +445,8 @@ Robot {
               boundingObject USE leg1
               physics Physics {
               }
+              linearVelocity -6.064571514194694e-05 -0.3704819098058722 -0.003442711635438687
+              angularVelocity -0.6285884693219234 2.8790002654521253e-06 -0.006519661045712551
             }
           }
           Shape {
@@ -436,6 +466,8 @@ Robot {
         physics Physics {
           mass 1
         }
+        linearVelocity -6.0214184082234614e-05 -0.2763715798380874 -0.0034438241370696233
+        angularVelocity 0.37140576483823107 -1.6249835506246598e-06 -0.006512014767020797
       }
     }
     DEF body Shape {
@@ -459,4 +491,6 @@ Robot {
     mass 1
   }
   controller "levelingController"
+  linearVelocity 0.0003303820739823355 -0.29865892178738473 0.01883892764767532
+  angularVelocity 0.3714000115178937 -1.6283992652555654e-06 -0.006511931348177411
 }
