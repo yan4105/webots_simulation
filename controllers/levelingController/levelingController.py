@@ -8,14 +8,15 @@ from deepbots.robots.controllers.robot_emitter_receiver_csv import RobotEmitterR
 class levelingRobot(RobotEmitterReceiverCSV):
     def __init__(self):
         super().__init__()
-        #self.positionSensor = self.robot.getPositionSensor("polePosSensor")
-        #self.positionSensor.enable(self.get_timestep())
+        self.IMU = self.robot.getInertialUnit("inertial unit")
+        self.IMU.enable(self.get_timestep())
 
     def create_message(self):
         # Read the sensor value, convert to string and save it in a list
-        #message = [str(self.positionSensor.getValue())]
-        #return message
-        return ["abcd"]
+        message = [str(self.IMU.getRollPitchYaw())]
+        # print(message)
+        return message
+        #return ["abcd"]
 
     def use_message_data(self, message):
         #action = int(message[0]) # Convert the string message into an action integer

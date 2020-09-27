@@ -13,6 +13,7 @@ class ddpg_controller(SupervisorCSV):
         self.actionSpace = 2 # the agent can perform two actions
         self.robot = None
         self.respawnRobot()
+        self.IMUT = self.supervisor.getFromDef("IMU")
         #self.poleEndpoint = self.supervisor.getFromDef("POLE_ENDPOINT")
         self.messageReceived = None # Variable to save the messages received from the robot
         self.episodeCount = 0 # Episode counter
@@ -29,11 +30,11 @@ class ddpg_controller(SupervisorCSV):
         # Respawn robot in starting position and state
         rootNode = self.supervisor.getRoot() # This gets the root of the scene tree
         childrenField = rootNode.getField("children") # This gets a list of all the children, ie. objects of the scene
-        childrenField.importMFNode(-2, "Robot.wbo") # Load robot from file and add to second-to-last position
+        childrenField.importMFNode(-2, "Robot_imu.wbo") # Load robot from file and add to second-to-last position
 
         # Get the new robot and pole endpoint references
         self.robot = self.supervisor.getFromDef("ROBOT")
-        #self.poleEndpoint = self.supervisor.getFromDef("POLE_ENDPOINT")
+
 
     def get_observations(self):
         self.messageReceived = self.handle_receiver()
