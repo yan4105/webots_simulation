@@ -1,63 +1,7 @@
-#VRML_SIM R2020b utf8
-WorldInfo {
-  coordinateSystem "NUE"
-}
-Viewpoint {
-  orientation -0.4189155851307474 0.8933243642663102 0.1627307983841906 0.8617620710912938
-  position 2.2456961421001815 1.2060636467841983 1.7950020712491923
-}
-CircleArena {
-  translation 0 -0.2 0
-  radius 2
-}
-Background {
-  skyColor [
-    0.784314 0.898039 0.921569
-  ]
-  backUrl [
-    "textures/cubic/dusk_back.png"
-  ]
-  bottomUrl [
-    "textures/cubic/dusk_bottom.png"
-  ]
-  frontUrl [
-    "textures/cubic/dusk_front.png"
-  ]
-  leftUrl [
-    "textures/cubic/dusk_left.png"
-  ]
-  rightUrl [
-    "textures/cubic/dusk_right.png"
-  ]
-  topUrl [
-    "textures/cubic/dusk_top.png"
-  ]
-  backIrradianceUrl [
-    "textures/cubic/dusk_back.hdr"
-  ]
-  bottomIrradianceUrl [
-    "textures/cubic/dusk_bottom.hdr"
-  ]
-  frontIrradianceUrl [
-    "textures/cubic/dusk_front.hdr"
-  ]
-  leftIrradianceUrl [
-    "textures/cubic/dusk_left.hdr"
-  ]
-  rightIrradianceUrl [
-    "textures/cubic/dusk_right.hdr"
-  ]
-  topIrradianceUrl [
-    "textures/cubic/dusk_top.hdr"
-  ]
-}
-DEF ROBOT Robot {
+#VRML_OBJ R2020b utf8
+Robot {
   translation 0 0.16 0
   children [
-    Receiver {
-    }
-    Emitter {
-    }
     DEF body_hip1_a HingeJoint {
       jointParameters HingeJointParameters {
         position -1.4008351832798373e-07
@@ -502,6 +446,5 @@ DEF ROBOT Robot {
   physics Physics {
     mass 1
   }
-  controller "ddpg_controller"
-  supervisor TRUE
+  controller "robotController"
 }
