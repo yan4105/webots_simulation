@@ -2,6 +2,10 @@
 Robot {
   translation 0 0.16 0
   children [
+    DEF EMITTER Emitter {
+    }
+    DEF RECEIVER Receiver {
+    }
     DEF body_hip1_a HingeJoint {
       jointParameters HingeJointParameters {
         position -1.4008351832798373e-07
@@ -446,5 +450,5 @@ Robot {
   physics Physics {
     mass 1
   }
-  controller "robotController"
+  controller "levelingController"
 }

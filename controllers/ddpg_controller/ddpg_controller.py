@@ -36,6 +36,7 @@ class ddpg_controller(SupervisorCSV):
         #self.poleEndpoint = self.supervisor.getFromDef("POLE_ENDPOINT")
 
     def get_observations(self):
+        self.messageReceived = self.handle_receiver()
         return [1, 1, 1, 1]
 
     def get_reward(self, action=None):
@@ -45,7 +46,6 @@ class ddpg_controller(SupervisorCSV):
         return 1
 
     def is_done(self):
-
         return False
 
     def solved(self):
