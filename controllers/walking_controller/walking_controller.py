@@ -6,6 +6,7 @@ from controller import Robot
 import numpy as np
 from deepbots.supervisor.controllers.supervisor_emitter_receiver import SupervisorCSV
 import ast
+import math
 from PPOAgent import PPOAgent, Transition
 from utilities import normalizeToRange
 
@@ -13,7 +14,7 @@ class ddpg_controller(SupervisorCSV):
     def __init__(self):
         super().__init__()
         self.observationSpace = 30 # The agent has four inputs
-        self.actionSpace = 8 # the agent can perform two actions
+        self.actionSpace = 36 # the agent can perform two actions
         self.robot = None
         self.respawnRobot()
         self.IMU = self.supervisor.getFromDef("IMU")
@@ -21,11 +22,14 @@ class ddpg_controller(SupervisorCSV):
         self.messageReceived = None # Variable to save the messages received from the robot
         self.episodeCount = 0 # Episode counter
         self.episodeLimit = 20000 # Max number of episodes allowed
-        self.stepPerEpisode = 100 # Max number of steps per episode
+        self.stepPerEpisode = 20000 # Max number of steps per episode
         self.episodeScore = 0 # Score accumulated during an episode
         self.episodeScoreList = [] # A list to save all the episode scores, used to check if task is solved
-        self.abs_last = 0
-        self.got_big_reward = 0
+        self.last_x = 0
+        self.max_x = 0
+        self.stationary_count = 0
+        self.step_count = 1
+        self.done = False
 
     def respawnRobot(self):
         #print("respawn called")
@@ -74,70 +78,46 @@ class ddpg_controller(SupervisorCSV):
         if self.messageReceived is not None:
             message = self.messageReceived
             message = [float(i) for i in message]
-            roll, pitch, yaw, hipy_a_pos, hipy_b_pos, hipy_c_pos, hipy_d_pos\
-                = message[0], message[1], message[2],\
-                  message[3], message[4], message[5],\
-                  message[6]
-            x, y = message[11], message[13]
-            #print("reward", (abs(roll) + abs(pitch) - self.abs_last) * 10)
-            cri = (abs(roll) + abs(pitch))
-            if cri < self.abs_last:
-                reward = (self.abs_last - cri) * 1000
-            else:
-                reward = -0.1
-            self.abs_last = cri
-            if (cri < 0.0005):
-                self.got_big_reward += 1
-                reward += 500000
-            elif (cri < 0.001):
-                self.got_big_reward += 1
-                reward += 200000
-            elif (cri < 0.005):
-                self.got_big_reward += 1
-                reward += 100000
-            elif (cri < 0.01):
-                self.got_big_reward += 1
-            #    print("got 20000")
-                reward += 40000
-            elif (cri < 0.05):
-                self.got_big_reward += 1
-            #    print("got 10000")
-                reward += 1000
-            elif (cri < 0.1):
-                self.got_big_reward += 1
-            #    print("got 5000")
-                #reward += 5000
-            #elif (cri < 0.3):
-            #    self.got_big_reward += 1
-            #    print("got 2000")
-            #    reward += 2000
-            #elif (cri < 0.5):
-            #    print("got 500")
-            #    reward += 500
-            else:
-                reward -= 100000
-            if abs(hipy_a_pos) < 0.01 or \
-                abs(hipy_a_pos) < 0.01 or \
-                abs(hipy_a_pos) < 0.01 or \
-                abs(hipy_a_pos) < 0.01:
-                reward -= 1000
+            roll, pitch, yaw = message[0], message[1], message[2]
+            x, h, y = message[27], message[28], message[29]
+            #print(y)
+            #if x > 8 and abs(y) < 0.4:
+            #    self.done = True
+            #    return 10000
+            reward = 1
+            # abs(x - self.last_x) < 1e-3 or
+            #if x <= self.max_x or x < 0:
+            #    self.stationary_count += 1
+            #    reward = -1
             #else:
-            #    print(cri)
-            #    if (self.got_big_reward > 0):
-            #        reward -= 1000
-            #    else:
-            #        reward -= 1000
-            #if (cri < 0.002):
-            #    print("got big reward")
-            #    reward += 10000
-            #if (cri > 0.02):
-            #    reward = cri * 100
-            #if (cri > 0.01):
-            #    reward = cri
+            #    self.stationary_count = 0
+            #if (x > self.max_x + 0.001):
+                #print(reward)
+                #print(x)
+            #    self.max_x = x
+            #    return (x - self.max_x) * 1000
             #else:
-            #    reward = -0.01
-            #print(self.abs_last)
-            return reward
+            #    return -0.001
+                #if self.stationary_count > 10:
+                #reward -= self.stationary_count // 10
+            #if reward > 0:
+            #    reward *= (1 + self.step_count / 100)
+            #self.step_count += 1
+            #print(h)
+            #if (h > 0.22):
+            #    reward -= abs(h) * 3
+            #if x > 0:
+            #    reward = x * 200 - abs(y) # + h/5
+           # if (x - self.last_x < 0.001):
+           #     reward -= 200
+            #cri = abs(roll) + abs(pitch)
+            #if abs(cri) > 2:
+            #    reward -= 10000
+            #return reward
+            #return reward
+            self.max_x = max(self.max_x, x)
+            self.step_count += 1
+            return self.max_x   #/ self.step_count
         return 0
 
     def is_done(self):
@@ -145,10 +125,13 @@ class ddpg_controller(SupervisorCSV):
             message = self.messageReceived
             message = [float(i) for i in message]
             roll, pitch, yaw = message[0], message[1], message[2]
+            x, h, y = message[27], message[28], message[29]
+            #print(y)
             #print("reward", (abs(roll) + abs(pitch) - self.abs_last) * 10)
             cri = abs(roll) + abs(pitch)
-            #if abs(cri) > 0.1:
-                #return True
+            if abs(cri) > 2.2: #or abs(y) > 0.4: #or self.stationary_count > 60:
+                return True
+        #return False
         return False
 
     def solved(self):
@@ -162,6 +145,11 @@ class ddpg_controller(SupervisorCSV):
         self.respawnRobot()
         self.supervisor.simulationResetPhysics() # Reset the simulation physics to start over
         self.messageReceived = None
+        self.last_x = 0
+        self.max_x = 0
+        self.stationary_count = 0
+        self.step_count = 0
+        self.done = False
         return [0.0 for _ in range(self.observationSpace)]
 
     def get_info(self):
@@ -169,6 +157,7 @@ class ddpg_controller(SupervisorCSV):
 
 supervisor = ddpg_controller()
 agent = PPOAgent(supervisor.observationSpace, supervisor.actionSpace)
+agent.load("")
 solved = False
 
 # Run outer loop until the episodes limit is reached or the task is solved

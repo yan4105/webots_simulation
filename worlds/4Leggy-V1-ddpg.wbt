@@ -3,12 +3,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation -0.4189155851307474 0.8933243642663102 0.1627307983841906 0.8617620710912938
-  position 2.2456961421001815 1.2060636467841983 1.7950020712491923
-}
-CircleArena {
-  translation 0 -0.2 0
-  radius 2
+  orientation -0.8742172801227018 0.4855348264469917 -0.0002818544927813569 0.18193211441225604
+  position 22.98706896505107 16.108712718741415 86.68489295722856
 }
 Background {
   skyColor [
@@ -58,6 +54,34 @@ DEF SUPERVISOR Robot {
     Emitter {
     }
   ]
-  controller "ddpg_controller"
+  controller "walking_controller"
   supervisor TRUE
+}
+ThreeSteps {
+  translation 0 -0.5 4.63
+}
+UnevenTerrain {
+  translation 0 -3.27 0
+}
+OilBarrel {
+  translation -1.04 0.44 0
+}
+ThreeSteps {
+  name "three steps(1)"
+}
+ThreeSteps {
+  translation 4.18777 -0.32 0.0517308
+  rotation 0 1 0 1.5
+  name "three steps(2)"
+  increment 0 0.008 0
+}
+ThreeSteps {
+  translation 4.18154 -0.5 3.16465
+  rotation 0 1 0 1.5
+  name "three steps(4)"
+}
+ThreeSteps {
+  translation 5.76 -0.5 -0.67
+  name "three steps(3)"
+  increment 0 0.01 0
 }
