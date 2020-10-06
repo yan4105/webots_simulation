@@ -1,0 +1,10 @@
+#VRML_OBJ R2020b utf8
+DEF TERRAIN UnevenTerrain {
+  translation 0 -5.77 0
+  name "terrain"
+  size 10 10 10
+  xDimension 20
+  zDimension 20
+  randomSeed 6
+  perlinNOctaves 5
+}

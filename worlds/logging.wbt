@@ -3,8 +3,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation 0.003588709222441101 -0.9997396394758172 -0.02253385068912414 3.146880124443096
-  position -3.115280196076176 3.689707030045648 -88.74878628922265
+  orientation 0.023739883806967888 -0.9870131765980141 -0.15887544536122966 3.3901651180610757
+  position 5.4844214589726095 9.111444293730653 -29.63237562861904
 }
 Background {
   skyColor [
@@ -54,15 +54,6 @@ DEF SUPERVISOR Robot {
     Emitter {
     }
   ]
-  controller "walking_controller"
+  controller "data_collection_controller"
   supervisor TRUE
-}
-UnevenTerrain {
-  translation 0 -5.77 0
-  name "uneven terrain(1)"
-  size 100 10 100
-  xDimension 10
-  zDimension 10
-  randomSeed 6
-  perlinNOctaves 9
 }
