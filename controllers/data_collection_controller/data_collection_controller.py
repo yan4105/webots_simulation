@@ -25,7 +25,7 @@ class ddpg_controller(SupervisorCSV):
         #self.poleEndpoint = self.supervisor.getFromDef("POLE_ENDPOINT")
         self.messageReceived = None # Variable to save the messages received from the robot
         self.episodeCount = 0 # Episode counter
-        self.episodeLimit = 20000 # Max number of episodes allowed
+        self.episodeLimit = 200000 # Max number of episodes allowed
         self.stepPerEpisode = 100 # Max number of steps per episode
         self.episodeScore = 0 # Score accumulated during an episode
         self.episodeScoreList = [] # A list to save all the episode scores, used to check if task is solved
@@ -71,7 +71,7 @@ class ddpg_controller(SupervisorCSV):
             message = self.messageReceived
             message = [float(i) for i in message]
             x, h, y = message[27], message[28], message[29]
-            if abs(x - self.last_x) < 1e-4:
+            if abs(x - self.last_x) < 1e-6:
                 self.stationary_count += 1
             else:
                 self.stationary_count = 0
@@ -95,7 +95,7 @@ class ddpg_controller(SupervisorCSV):
             x, h, y = message[27], message[28], message[29]
             roll, pitch, yaw = message[0], message[1], message[2]
             cri = abs(roll) + abs(pitch)
-            if cri > 2:
+            if cri > 1.5:
                 return True
         return False
 
@@ -174,6 +174,7 @@ if not solved:
 elif solved:
     print("Task is solved, deploying agent for testing...")
 observation = supervisor.reset()
-while True:
-    selectedAction, actionProb = agent.work(observation, type_="selectActionMax")
-    observation, _, _, _ = supervisor.step([selectedAction])
+
+#while True:
+#    selectedAction, actionProb = agent.work(observation, type_="selectActionMax")
+#    observation, _, _, _ = supervisor.step([selectedAction])
