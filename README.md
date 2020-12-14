@@ -1,5 +1,11 @@
 # Webots Simulation
 
+This project uses reinforcement learning to train a 4 leg 3 joint robot to walk in Webots simulator.
+
+## Algorithm used
+
+PPO is selected for this project. RNN is being considered to improve learned gait.
+
 ## Controllers:
 ### ddpg_controller:
 ### levelingController:
