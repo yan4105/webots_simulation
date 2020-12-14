@@ -5,5 +5,5 @@ sceneTreePerspectives: 000000ff0000000100000002000000c0000000fa01000000020100000
 maximizedDockId: -1
 centralWidgetVisible: 1
 orthographicViewHeight: 1
-textFiles: 0 "controllers/simple_walking_controller/simple_walking_controller.py" "controllers/ddpg_controller/ddpg_controller.py" "controllers/robotController/robotController.py" "controllers/levelingController/levelingController.py"
+textFiles: 7 "controllers/simple_walking_controller/simple_walking_controller.py" "controllers/ddpg_controller/ddpg_controller.py" "controllers/robotController/robotController.py" "controllers/levelingController/levelingController.py" "controllers/walking_controller/walking_controller.py" "controllers/data_collection_controller/data_collection_controller.py" "controllers/is_topple/is_topple.py" "controllers/logging_controller/logging_controller.py"
 consoles: Console:All:All
