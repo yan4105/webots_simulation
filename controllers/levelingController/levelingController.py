@@ -123,7 +123,27 @@ class levelingRobot(RobotEmitterReceiverCSV):
         motor = motors[motor_idx]
         if (motor_idx < 4):
             if action == 0:
-                motor.setTorque(0)
+                #motor.setTorque(0)
+                motor.setVelocity(0)
+                #motor.setAcceleration(0)
+            #elif action == 1:
+            elif action == 1:
+                #if (motor.getVelocity() < 0):
+                #    motor.setVelocity(0)
+                #motor.setVelocity(0)
+                #else:
+                #motor.setAcceleration(0.1)
+                #motor.setVelocity(1)
+                motor.setVelocity(1)
+            else:
+                #if (motor.getVelocity() > 0):
+                #motor.setAcceleration(0.1)
+                #motor.setVelocity(-1)
+                motor.setVelocity(-1)
+                #else:
+        elif motor_idx < 8:
+            if action == 0:
+                motor.setVelocity(0)
                 #motor.setAcceleration(0)
             #elif action == 1:
             elif action == 1:
@@ -138,40 +158,25 @@ class levelingRobot(RobotEmitterReceiverCSV):
                 #motor.setAcceleration(0.1)
                 motor.setVelocity(-1)
                 #else:
-        elif motor_idx < 8:
-            if action == 0:
-                motor.setTorque(0)
-                #motor.setAcceleration(0)
-            #elif action == 1:
-            elif action == 1:
-                #if (motor.getVelocity() < 0):
-                #    motor.setVelocity(0)
-                #motor.setVelocity(0)
-                #else:
-                #motor.setAcceleration(0.1)
-                motor.setTorque(1)
-            else:
-                #if (motor.getVelocity() > 0):
-                #motor.setAcceleration(0.1)
-                motor.setTorque(-1)
-                #else:
         else:
+            return
             if action == 0:
-                motor.setTorque(0)
-                #motor.setAcceleration(0)
-            #elif action == 1:
+                motor.setVelocity(0)
+                motor.setAcceleration(0)
             elif action == 1:
-                #if (motor.getVelocity() < 0):
-                #    motor.setVelocity(0)
+            #elif action == 1:
+                if (motor.getVelocity() < 0):
+                    motor.setVelocity(0)
                 #motor.setVelocity(0)
-                #else:
-                #motor.setAcceleration(0.1)
-                motor.setTorque(5)
+                else:
+                    #motor.setAcceleration(0.1)
+                    motor.setVelocity(1)
             else:
-                #if (motor.getVelocity() > 0):
-                #motor.setAcceleration(0.1)
-                motor.setTorque(-1)
-                #else:
+                if (motor.getVelocity() > 0):
+                    #motor.setAcceleration(0.1)
+                    motor.setVelocity(0)
+                else:
+                    motor.setVelocity(-1)
 
 
 # Create the robot controller object and run it

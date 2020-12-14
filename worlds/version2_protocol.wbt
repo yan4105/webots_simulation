@@ -1,0 +1,568 @@
+#VRML_SIM R2020b utf8
+WorldInfo {
+  coordinateSystem "NUE"
+}
+Viewpoint {
+  orientation -0.0025766330383077537 -0.9994453722713014 -0.03320103624385466 2.7707619820335867
+  position -3.2461803528892967 -0.4216729559520582 -7.615745430178257
+}
+Background {
+  skyColor [
+    0.784314 0.898039 0.921569
+  ]
+  backUrl [
+    "textures/cubic/dusk_back.png"
+  ]
+  bottomUrl [
+    "textures/cubic/dusk_bottom.png"
+  ]
+  frontUrl [
+    "textures/cubic/dusk_front.png"
+  ]
+  leftUrl [
+    "textures/cubic/dusk_left.png"
+  ]
+  rightUrl [
+    "textures/cubic/dusk_right.png"
+  ]
+  topUrl [
+    "textures/cubic/dusk_top.png"
+  ]
+  backIrradianceUrl [
+    "textures/cubic/dusk_back.hdr"
+  ]
+  bottomIrradianceUrl [
+    "textures/cubic/dusk_bottom.hdr"
+  ]
+  frontIrradianceUrl [
+    "textures/cubic/dusk_front.hdr"
+  ]
+  leftIrradianceUrl [
+    "textures/cubic/dusk_left.hdr"
+  ]
+  rightIrradianceUrl [
+    "textures/cubic/dusk_right.hdr"
+  ]
+  topIrradianceUrl [
+    "textures/cubic/dusk_top.hdr"
+  ]
+}
+UnevenTerrain {
+  translation 0 -2.53 0
+  name "uneven terrain(1)"
+  size 10 2 10
+  xDimension 200
+  zDimension 200
+  randomSeed 6
+  perlinNOctaves 9
+}
+CircleArena {
+  translation 0 -1.2 0
+  radius 5
+}
+DEF ROBOT Robot {
+  translation 0.13500231000080445 -0.8628151977305912 -0.03993922667611373
+  rotation -0.00010246816480965301 0.9999998459506945 0.0005455262250878724 -0.48158208032129624
+  children [
+    DEF GPS GPS {
+      name "GPS"
+    }
+    DEF IMU InertialUnit {
+    }
+    DEF EMITTER Emitter {
+    }
+    DEF RECEIVER Receiver {
+    }
+    DEF body_hip1_a HingeJoint {
+      jointParameters HingeJointParameters {
+        position 0.08723421008926571
+        axis 0 1 0
+        anchor -0.06 -0.06 0
+        minStop -0.5
+        maxStop 0.5
+      }
+      device [
+        DEF hipx_a_pos_sensor PositionSensor {
+          name "hipx_a_pos_sensor"
+        }
+        DEF h1a RotationalMotor {
+          name "hipx_a"
+          minPosition -3.102793096529908e-12
+          maxPosition 0.08723421008926571
+        }
+      ]
+      endPoint Solid {
+        translation -0.06003105145818559 -0.06003878288456278 -1.681411600215239e-05
+        rotation 0.04356176674691955 0.043562312791847684 0.9981005447258869 1.5726902478404623
+        children [
+          DEF hip1_hip2a HingeJoint {
+            jointParameters HingeJointParameters {
+              position 0.4500979863870572
+              axis 0 0 1
+              minStop 0.45
+              maxStop 0.78
+            }
+            device [
+              DEF hipy_a_pos_sensor PositionSensor {
+                name "hipy_a_pos_sensor"
+              }
+              DEF h2a RotationalMotor {
+                name "hipy_a"
+                maxTorque 25
+              }
+            ]
+            endPoint Solid {
+              translation -0.0653285751762882 0.13521839031482366 0.025038318366501642
+              rotation 0.00011079843616565824 0.0009331789970272375 0.9999995584502357 0.4500949599529622
+              children [
+                DEF leg1_leg2 HingeJoint {
+                  jointParameters HingeJointParameters {
+                    position 0.15014929359837276
+                    axis 0 0 1
+                    anchor 0 0.135 0
+                    minStop 0.15
+                    maxStop 0.78
+                  }
+                  device [
+                    DEF leg_a_pos_sensor PositionSensor {
+                      name "leg_a_pos_sensor"
+                    }
+                    RotationalMotor {
+                      name "leg_a"
+                    }
+                  ]
+                  endPoint Solid {
+                    translation -0.018698218499982596 0.25859359459505515 -0.025399999999999923
+                    rotation 0 0 1 0.1501492935983724
+                    children [
+                      Shape {
+                        appearance Appearance {
+                          material Material {
+                            diffuseColor 1 0.219608 0.92549
+                            emissiveColor 0.666667 0 0.498039
+                          }
+                        }
+                        geometry DEF leg2 Box {
+                          size 0.0254 0.26 0.0254
+                        }
+                      }
+                    ]
+                    name "leg2"
+                    boundingObject USE leg2
+                    physics Physics {
+                    }
+                  }
+                }
+                Shape {
+                  appearance Appearance {
+                    material Material {
+                      diffuseColor 0.333333 0.333333 0.498039
+                      emissiveColor 0.815686 0.0431373 0.117647
+                    }
+                  }
+                  geometry DEF leg1 Box {
+                    size 0.0254 0.31 0.0254
+                  }
+                }
+              ]
+              name "hip2a"
+              boundingObject USE leg1
+              physics Physics {
+              }
+            }
+          }
+          Shape {
+            appearance Appearance {
+              material Material {
+                diffuseColor 0.333333 0.666667 1
+                emissiveColor 0.313725 0.666667 1
+              }
+            }
+            geometry DEF servoMount1 Box {
+              size 0.0254 0.0254 0.0254
+            }
+          }
+        ]
+        name "hip1a"
+        boundingObject USE servoMount1
+        physics Physics {
+          mass 1
+        }
+      }
+    }
+    DEF body_hip1_b HingeJoint {
+      jointParameters HingeJointParameters {
+        position 0.04883919985441891
+        axis 0 1 0
+        anchor 0.06 -0.06 0
+        minStop -0.5
+        maxStop 0.5
+      }
+      device [
+        DEF hipx_b_pos_sensor PositionSensor {
+          name "hipx_b_pos_sensor"
+        }
+        DEF h1b RotationalMotor {
+          name "hipx_b"
+          maxPosition 2
+        }
+      ]
+      endPoint Solid {
+        translation 0.06 -0.06 0
+        rotation 0.7070022714208689 0.7070003639809433 -0.01727059745769903 3.1761227646548758
+        children [
+          DEF hip1_hip2 HingeJoint {
+            jointParameters HingeJointParameters {
+              position 0.44994476551017487
+              axis 0 0 1
+              minStop 0.45
+              maxStop 0.78
+            }
+            device [
+              DEF hipy_b_pos_sensor PositionSensor {
+                name "hipy_b_pos_sensor"
+              }
+              DEF h2 RotationalMotor {
+                name "hipy_b"
+                maxPosition 1
+                maxTorque 25
+              }
+            ]
+            endPoint Solid {
+              translation -0.06523736965671531 0.1350706689117703 0.024999999999999967
+              rotation 0 0 1 0.44994476551017487
+              children [
+                DEF leg1_leg2 HingeJoint {
+                  jointParameters HingeJointParameters {
+                    position 0.15014805324226158
+                    axis 0 0 1
+                    anchor 0 0.135 0
+                    minStop 0.15
+                    maxStop 0.78
+                  }
+                  device [
+                    DEF leg_b_pos_sensor PositionSensor {
+                      name "leg_b_pos_sensor"
+                    }
+                    RotationalMotor {
+                      name "leg_b"
+                      minPosition -1.0373917653557153e-05
+                      maxPosition 0.15015284154238598
+                    }
+                  ]
+                  endPoint Solid {
+                    translation -0.018698065199897897 0.2585936177874099 -0.025399999999999992
+                    rotation 0 0 1 0.15014805324226263
+                    children [
+                      Shape {
+                        appearance Appearance {
+                          material Material {
+                            diffuseColor 1 0.219608 0.92549
+                            emissiveColor 0.666667 0 0.498039
+                          }
+                        }
+                        geometry DEF leg2 Box {
+                          size 0.0254 0.26 0.0254
+                        }
+                      }
+                    ]
+                    name "leg2"
+                    boundingObject USE leg2
+                    physics Physics {
+                    }
+                  }
+                }
+                Shape {
+                  appearance Appearance {
+                    material Material {
+                      diffuseColor 0.333333 0.333333 0.498039
+                      emissiveColor 0.815686 0.0431373 0.117647
+                    }
+                  }
+                  geometry DEF leg1 Box {
+                    size 0.0254 0.31 0.0254
+                  }
+                }
+              ]
+              name "hip2"
+              boundingObject USE leg1
+              physics Physics {
+              }
+            }
+          }
+          Shape {
+            appearance Appearance {
+              material Material {
+                diffuseColor 0.333333 0.666667 1
+                emissiveColor 0.313725 0.666667 1
+              }
+            }
+            geometry DEF servoMount1 Box {
+              size 0.0254 0.0254 0.0254
+            }
+          }
+        ]
+        name "hip1(1)"
+        boundingObject USE servoMount1
+        physics Physics {
+          mass 1
+        }
+      }
+    }
+    DEF body_hip1_c HingeJoint {
+      jointParameters HingeJointParameters {
+        position -0.10597943118422436
+        axis 0 1 0
+        anchor 0 0.06 0.06
+        minStop -0.5
+        maxStop 0.5
+      }
+      device [
+        DEF hipx_c_pos_sensor PositionSensor {
+          name "hipx_c_pos_sensor"
+        }
+        DEF h1c RotationalMotor {
+          name "hipx_c"
+          minPosition -0.1059856038956049
+        }
+      ]
+      endPoint Solid {
+        translation -4.415857994243227e-08 -0.06000059999999978 0.06000002988141715
+        rotation 0.5558509204288032 0.5558465983737773 0.6181135116908163 2.0343221990797584
+        children [
+          DEF hip1_hip2 HingeJoint {
+            jointParameters HingeJointParameters {
+              position 0.4500659510282419
+              axis 0 0 1
+              minStop 0.45
+              maxStop 0.78
+            }
+            device [
+              DEF hipy_c_pos_sensor PositionSensor {
+                name "hipy_c_pos_sensor"
+              }
+              DEF h2 RotationalMotor {
+                name "hipy_c"
+                maxTorque 25
+              }
+            ]
+            endPoint Solid {
+              translation -0.06525373778662726 0.13506276209553128 0.024999999999999963
+              rotation 0 0 1 0.45006595102824193
+              children [
+                DEF leg1_leg2 HingeJoint {
+                  jointParameters HingeJointParameters {
+                    position 0.15013372910897352
+                    axis 0 0 1
+                    anchor 0 0.135 0
+                    minStop 0.15
+                    maxStop 0.78
+                  }
+                  device [
+                    DEF leg_c_pos_sensor PositionSensor {
+                      name "leg_c_pos_sensor"
+                    }
+                    RotationalMotor {
+                      name "leg_c"
+                      minPosition -1.0374070713654395e-05
+                      maxPosition 0.15013577035001283
+                    }
+                  ]
+                  endPoint Solid {
+                    translation -0.01869629482652496 0.2585938856083084 -0.025399999999999916
+                    rotation 0 0 1 0.150133729108975
+                    children [
+                      Shape {
+                        appearance Appearance {
+                          material Material {
+                            diffuseColor 1 0.219608 0.92549
+                            emissiveColor 0.666667 0 0.498039
+                          }
+                        }
+                        geometry DEF leg2 Box {
+                          size 0.0254 0.26 0.0254
+                        }
+                      }
+                    ]
+                    name "leg2"
+                    boundingObject USE leg2
+                    physics Physics {
+                    }
+                  }
+                }
+                Shape {
+                  appearance Appearance {
+                    material Material {
+                      diffuseColor 0.333333 0.333333 0.498039
+                      emissiveColor 0.815686 0.0431373 0.117647
+                    }
+                  }
+                  geometry DEF leg1 Box {
+                    size 0.0254 0.31 0.0254
+                  }
+                }
+              ]
+              name "hip2"
+              boundingObject USE leg1
+              physics Physics {
+              }
+            }
+          }
+          Shape {
+            appearance Appearance {
+              material Material {
+                diffuseColor 0.333333 0.666667 1
+                emissiveColor 0.313725 0.666667 1
+              }
+            }
+            geometry DEF servoMount1 Box {
+              size 0.0254 0.0254 0.0254
+            }
+          }
+        ]
+        name "hip1(2)"
+        boundingObject USE servoMount1
+        physics Physics {
+          mass 1
+        }
+      }
+    }
+    DEF body_hip1_d HingeJoint {
+      jointParameters HingeJointParameters {
+        position -0.016190481172597256
+        axis 0 1 0
+        anchor 0 -0.06 -0.06
+        minStop -0.5
+        maxStop 0.5
+      }
+      device [
+        DEF hipx_d_pos_sensor PositionSensor {
+          name "hipx_d_pos_sensor"
+        }
+        DEF h1d RotationalMotor {
+          name "hipx_d"
+        }
+      ]
+      endPoint Solid {
+        translation -2.0011839794675813e-13 -0.0600006 -0.06000000000000324
+        rotation -0.5804436482730626 -0.5804396688162222 0.5711172927201308 2.103767951841088
+        children [
+          DEF hip1_hip2 HingeJoint {
+            jointParameters HingeJointParameters {
+              position 0.45006389953229686
+              axis 0 0 1
+              minStop 0.45
+              maxStop 0.78
+            }
+            device [
+              DEF hipy_d_pos_sensor PositionSensor {
+                name "hipy_d_pos_sensor"
+              }
+              DEF h2 RotationalMotor {
+                name "hipy_d"
+                maxTorque 25
+              }
+            ]
+            endPoint Solid {
+              translation -0.06525346070578113 0.13506289596302545 0.02499999999999998
+              rotation 0 0 1 0.4500638995322965
+              children [
+                DEF leg1_leg2 HingeJoint {
+                  jointParameters HingeJointParameters {
+                    position 0.150132587625507
+                    axis 0 0 1
+                    anchor 0 0.135 0
+                    minStop 0.15
+                    maxStop 0.78
+                  }
+                  device [
+                    DEF leg_d_pos_sensor PositionSensor {
+                      name "leg_d_pos_sensor"
+                    }
+                    DEF leg_d RotationalMotor {
+                      name "leg_d"
+                    }
+                  ]
+                  endPoint Solid {
+                    translation -0.01869615374613581 0.2585939069497395 -0.02539999999999997
+                    rotation 0 0 1 0.15013258762550558
+                    children [
+                      Shape {
+                        appearance Appearance {
+                          material Material {
+                            diffuseColor 1 0.219608 0.92549
+                            emissiveColor 0.666667 0 0.498039
+                          }
+                        }
+                        geometry DEF leg2 Box {
+                          size 0.0254 0.26 0.0254
+                        }
+                      }
+                    ]
+                    name "leg2"
+                    boundingObject USE leg2
+                    physics Physics {
+                    }
+                  }
+                }
+                Shape {
+                  appearance Appearance {
+                    material Material {
+                      diffuseColor 0.333333 0.333333 0.498039
+                      emissiveColor 0.815686 0.0431373 0.117647
+                    }
+                  }
+                  geometry DEF leg1 Box {
+                    size 0.0254 0.31 0.0254
+                  }
+                }
+              ]
+              name "hip2"
+              boundingObject USE leg1
+              physics Physics {
+              }
+            }
+          }
+          Shape {
+            appearance Appearance {
+              material Material {
+                diffuseColor 0.333333 0.666667 1
+                emissiveColor 0.313725 0.666667 1
+              }
+            }
+            geometry DEF servoMount1 Box {
+              size 0.0254 0.0254 0.0254
+            }
+          }
+        ]
+        name "hip1(3)"
+        boundingObject USE servoMount1
+        physics Physics {
+          mass 1
+        }
+      }
+    }
+    DEF body Shape {
+      appearance Appearance {
+        material Material {
+          ambientIntensity 0.3
+          diffuseColor 1 1 0
+          emissiveColor 1 0.666667 0
+          shininess 1
+        }
+      }
+      geometry Capsule {
+        height 0.1
+        radius 0.05
+      }
+    }
+  ]
+  name "chris"
+  boundingObject USE body
+  physics Physics {
+    mass 1
+  }
+  controller "protocol2_controller"
+  linearVelocity 1.3463496713654877e-06 5.709990137972909e-06 5.514020109544049e-06
+  angularVelocity 2.344815681182276e-06 -9.785372128786329e-05 2.837047751855397e-06
+}
